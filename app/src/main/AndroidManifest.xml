@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".UseTemplateActivity" />
-        <activity android:name=".CreateTemplateAcitvity"></activity>
+        <activity android:name=".CreateTemplateAcitvity" />
+        <activity android:name=".OldMainActivity" />
     </application>
 
 </manifest>

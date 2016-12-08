@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
         AircraftClass a = new AircraftClass().makeSample();
 
-        Log.d("TEST", "Hi");
+        Log.d("TEST", a.tailNumber + "-" + a.model);
 
     }
 }

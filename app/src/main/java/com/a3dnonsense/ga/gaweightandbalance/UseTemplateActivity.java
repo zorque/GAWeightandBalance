@@ -266,7 +266,7 @@ public class UseTemplateActivity extends AppCompatActivity {
 
         final Resources res = getResources();
         Intent intent = getIntent();
-        String fileName = intent.getStringExtra(MainActivity.EXTRA_FILENAME);
+        String fileName = "";//intent.getStringExtra(MainActivity.EXTRA_FILENAME);
         Boolean fileVerified = false;
 
         ScrollView sv = new ScrollView(this);

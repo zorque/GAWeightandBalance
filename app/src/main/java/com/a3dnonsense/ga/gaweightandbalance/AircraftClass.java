@@ -7,38 +7,38 @@ package com.a3dnonsense.ga.gaweightandbalance;
 import java.util.ArrayList;
 
 class AircraftClass implements java.io.Serializable {
-    private class mechanicalWeight implements java.io.Serializable {
+    public class mechanicalWeight implements java.io.Serializable {
         String name;
         Double weight;
         Double arm;
         int id;
     }
-    private class baggageArea implements java.io.Serializable {
+    public class baggageArea implements java.io.Serializable {
         String name;
         Double weight;
         Double arm;
         int id;
     }
-    private class passengerRow implements java.io.Serializable {
+    public class passengerRow implements java.io.Serializable {
         String name;
         Double arm;
         int numseats;
     }
-    private class envelopeData implements java.io.Serializable {
+    public class envelopeData implements java.io.Serializable {
         Double weight;
         Double lowMoment;
         Double highMoment;
     }
 
-    private ArrayList<mechanicalWeight> mechanicalWeights;
-    private ArrayList<passengerRow> passengerRows;
-    private ArrayList<baggageArea> baggageAreas;
-    private ArrayList<envelopeData> envelopeDataSet;
+    public ArrayList<mechanicalWeight> mechanicalWeights = new ArrayList<mechanicalWeight>();
+    public ArrayList<passengerRow> passengerRows = new ArrayList<passengerRow>();
+    public ArrayList<baggageArea> baggageAreas = new ArrayList<baggageArea>();
+    public ArrayList<envelopeData> envelopeDataSet = new ArrayList<envelopeData>();
 
-    private String tailNumber;
-    private String model;
-    private Double maxGross;
-    private Double momentDivide;
+    public String tailNumber;
+    public String model;
+    public Double maxGross;
+    public Double momentDivide;
 
     public AircraftClass makeSample() {
         AircraftClass a = new AircraftClass();
@@ -101,5 +101,11 @@ class AircraftClass implements java.io.Serializable {
         a.envelopeDataSet.add(env3);
 
         return a;
+    }
+
+    public Boolean SaveToInternal() {
+
+
+        return false;
     }
 }

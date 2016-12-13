@@ -46,7 +46,7 @@ public class OldMainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 bCreateTemplate.setEnabled(false);
                 // restart the activity to refresh the file list.
-                Intent intent = new Intent(view.getContext(), CreateTemplateAcitvity.class);
+                Intent intent = new Intent(view.getContext(), CreateTemplateActivity.class);
                 startActivity(intent);
             }
         });
@@ -63,7 +63,7 @@ public class OldMainActivity extends AppCompatActivity {
                 FileOutputStream outputStream;
                 //create file / stream
                 try {
-                    String fileName = res.getString(R.string.template_file_prefix) + res.getString(R.string.sample_template_name) + ".csv";
+                    String fileName = res.getString(R.string.template_file_prefix) + res.getString(R.string.sample_template_prefix) + ".csv";
                     outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
                     //write out data
                     String[] sampleLines = res.getStringArray(R.array.sample_file_content);
@@ -180,12 +180,11 @@ public class OldMainActivity extends AppCompatActivity {
                             );
                             AlertDialog ad1 = adBuilder1.create();
                             ad1.show();
-                            // restart the activity to refresh the file list.
                         }
                     });
                     llTemplateRow.addView(bDeleteTemplate);
                     llTemplates.addView(llTemplateRow);
-                    if (template.equals(res.getString(R.string.sample_template_name))) {
+                    if (template.equals(res.getString(R.string.sample_template_prefix))) {
                         //set "Make Sample" button to disabled if we already generated it.
                         sampleExists = true;
                     }
@@ -200,3 +199,17 @@ public class OldMainActivity extends AppCompatActivity {
         setContentView(sv);
     }
 }
+/*
+FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+ObjectOutputStream os = new ObjectOutputStream(fos);
+os.writeObject(this);
+os.close();
+fos.close();
+Loading (w/o exception handling code):
+
+FileInputStream fis = context.openFileInput(fileName);
+ObjectInputStream is = new ObjectInputStream(fis);
+SimpleClass simpleClass = (SimpleClass) is.readObject();
+is.close();
+fis.close();
+ */

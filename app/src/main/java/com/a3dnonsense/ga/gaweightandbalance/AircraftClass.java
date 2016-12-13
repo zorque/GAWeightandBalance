@@ -1,62 +1,77 @@
 package com.a3dnonsense.ga.gaweightandbalance;
 
-/**
- * Created by mike on 12/7/2016.
- */
+import android.content.res.Resources;
 
 import java.util.ArrayList;
 
 class AircraftClass implements java.io.Serializable {
-    public class mechanicalWeight implements java.io.Serializable {
-        String name;
-        Double weight;
+    private static final long serialVersionUID = 1L;
+
+    class mechanicalWeight implements java.io.Serializable {
+        String name = "";
+        Double weight = 0.0;
         Double arm;
         int id;
+        int momentId;
     }
-    public class baggageArea implements java.io.Serializable {
-        String name;
-        Double weight;
-        Double arm;
+    class baggageArea implements java.io.Serializable {
+        String name = "";
+        Double weight = 0.0;
+        Double arm = 0.0;
         int id;
+        int momentId;
     }
-    public class passengerRow implements java.io.Serializable {
-        String name;
-        Double arm;
-        int numseats;
+    class passengerRow implements java.io.Serializable {
+        String name = "";
+        Double arm = 0.0;
+        Double weight = 0.0;
+        int numseats = 0;
+        int[] ids;
+        int momentID;
     }
-    public class envelopeData implements java.io.Serializable {
+    class envelopeData implements java.io.Serializable {
         Double weight;
         Double lowMoment;
         Double highMoment;
     }
 
-    public ArrayList<mechanicalWeight> mechanicalWeights = new ArrayList<mechanicalWeight>();
-    public ArrayList<passengerRow> passengerRows = new ArrayList<passengerRow>();
-    public ArrayList<baggageArea> baggageAreas = new ArrayList<baggageArea>();
-    public ArrayList<envelopeData> envelopeDataSet = new ArrayList<envelopeData>();
+    ArrayList<mechanicalWeight> mechanicalWeights = new ArrayList<mechanicalWeight>();
+    ArrayList<passengerRow> passengerRows = new ArrayList<passengerRow>();
+    ArrayList<baggageArea> baggageAreas = new ArrayList<baggageArea>();
+    ArrayList<envelopeData> envelopeDataSet = new ArrayList<envelopeData>();
 
-    public String tailNumber;
-    public String model;
-    public Double maxGross;
-    public Double momentDivide;
+    String tailNumber;
+    String model;
+    String weightUnits;
+    String armUnits;
+    Double maxGross;
+    Double emptyWeight;
+    Double momentDivide;
 
-    public AircraftClass makeSample() {
+    String getTemplateName() {
+        return this.tailNumber + "-" + this.model;
+    }
+
+    AircraftClass makeSample(String t, Resources res) {
         AircraftClass a = new AircraftClass();
-        a.tailNumber = "NSAMPL";
+        a.tailNumber = t;
         a.model = "c210";
+        a.weightUnits = res.getString(R.string.pounds);
+        a.armUnits = res.getString(R.string.inches);
         a.maxGross = 3400.0;
         a.momentDivide = 1000.0;
 
         mechanicalWeight empty = new mechanicalWeight();
         mechanicalWeight oil = new mechanicalWeight();
         mechanicalWeight fuel = new mechanicalWeight();
-        empty.name = "Empty";
-        empty.weight = 2071.0;
+        a.emptyWeight = 2071.0;
+        empty.name = res.getString(R.string.empty);
+        empty.weight = a.emptyWeight;
         empty.arm = 37.86;
-        oil.name = "Oil";
+        oil.name = res.getString(R.string.oil);
         oil.weight = 22.0;
         oil.arm = -18.18;
-        fuel.name = "Fuel";
+        fuel.name = res.getString(R.string.fuel);
         fuel.weight = 528.0;
         fuel.arm = 42.97;
         a.mechanicalWeights.add(empty);
@@ -101,11 +116,5 @@ class AircraftClass implements java.io.Serializable {
         a.envelopeDataSet.add(env3);
 
         return a;
-    }
-
-    public Boolean SaveToInternal() {
-
-
-        return false;
     }
 }

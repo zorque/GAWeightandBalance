@@ -19,12 +19,14 @@
     <string name="label_weight">Weight</string>
     <string name="label_arm">Arm</string>
     <string name="label_moment">Moment</string>
+    <string name="label_name">Name</string>
     <string name="empty">Empty</string>
     <string name="oil">Oil</string>
     <string name="fuel">Fuel</string>
     <string name="pounds">lbs</string>
     <string name="inches">in</string>
     <string name="unset">NULL</string>
+    <string name="split">ooOO00split00OOoo</string>
 
     <string name="no_files">No Files Found</string>
     <string name="no_templates">No Templates Found</string>
@@ -33,7 +35,6 @@
     <string name="no">No</string>
     <string name="total_weight_label">Total Weight:</string>
     <string name="total_moment_label">Total Moment</string>
-    <string name="label_name">Name</string>
     <string name="label_weight_result">Weight Analysis: </string>
     <string name="label_weight_result_in_range">In Range</string>
     <string name="label_weight_result_light">Out-of-range LIGHT</string>

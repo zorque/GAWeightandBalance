@@ -12,18 +12,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -82,10 +88,6 @@ public class OpenTemplateActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
 
-        LinearLayout.LayoutParams colLayoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
-
         final RelativeLayout rlMain = (RelativeLayout) findViewById(R.id.activity_open_template);
         //relative placement needs to happen after the layout has been painted
         rlMain.post(new Runnable() {
@@ -103,6 +105,9 @@ public class OpenTemplateActivity extends AppCompatActivity {
                     setLocation(namedViews.tvMomentBarLabelNoseMin, 93.8f, 33f, "RC");
                     setLocation(namedViews.tvMomentBarLabelTailMax, 93.8f, 67.6f, "RC");
                     setLocation(namedViews.tvMomentBarLabelDivide, 100f, 77f, "UR");
+                    namedViews.svDataInput.getLayoutParams().width = Math.round(screenWidth * 0.6f);
+                    namedViews.svDataInput.getLayoutParams().height = Math.round(screenHeight * 0.7f);
+                    setLayoutLocation(namedViews.svDataInput, 50f, 50f, "CN");
                 } else {
                     setLocation(namedViews.tvTemplateName, 49f, 0f, "UR");
                     setLocation(namedViews.tvTitleLabelUnits, 51f, 0f, "UL");
@@ -112,11 +117,11 @@ public class OpenTemplateActivity extends AppCompatActivity {
                     setLocation(namedViews.tvMomentBarLabelNoseMin, 33.3f, 94f, "BC");
                     setLocation(namedViews.tvMomentBarLabelTailMax, 67.9f, 94f, "BC");
                     setLocation(namedViews.tvMomentBarLabelDivide, 77.2f, 100f, "LL");
+                    //center our data scrollview
+                    namedViews.svDataInput.getLayoutParams().width = Math.round(screenWidth * 0.4f);
+                    namedViews.svDataInput.getLayoutParams().height = Math.round(screenHeight * 0.7f);
+                    setLayoutLocation(namedViews.svDataInput, 62f, 50f, "CN");
                 }
-                //center our data scrollview
-                namedViews.svDataInput.getLayoutParams().width = Math.round(screenWidth * 0.6f);
-                namedViews.svDataInput.getLayoutParams().height = Math.round(screenHeight * 0.7f);
-                setLayoutLocation(namedViews.svDataInput, 50f, 50f, "CN");
             }
         });
 
@@ -203,99 +208,256 @@ public class OpenTemplateActivity extends AppCompatActivity {
         rlMain.addView(tvMomentBarLabelDivide);
         namedViews.tvMomentBarLabelDivide = tvMomentBarLabelDivide;
 
-        //set up our input fields.
+        //set up a base container for our input fields.
         ScrollView svDataInput = new ScrollView(this);
         namedViews.svDataInput = svDataInput;
         rlMain.addView(svDataInput);
+
         LinearLayout llDataInput = new LinearLayout(this);
         llDataInput.setOrientation(LinearLayout.VERTICAL);
         svDataInput.addView(llDataInput);
 
-        HashMap<Double, LinearLayout> hmArmToLayout = new HashMap<Double, LinearLayout>();
+        //create table rows to hold data (we'll store them in a hashmap so we can sort by arm before adding to our main table
+        HashMap<Double, TableRow> hmArmToTblRow = new HashMap<>();
+        TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1.0f);
 
         //mechanical weight inputs
-        for (AircraftClass.mechanicalWeight m : aircraft.mechanicalWeights) {
-            LinearLayout llMechWeight = new LinearLayout(this);
-            llMechWeight.setOrientation(LinearLayout.HORIZONTAL);
-            llMechWeight.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
+        for (AircraftClass.mechanicalWeight weight : aircraft.mechanicalWeights) {
+            TableRow tblrSingleWeight = new TableRow(this);
+            tblrSingleWeight.setLayoutParams(tableParams);
+            tblrSingleWeight.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
 
             //layout our name, weight, arm, and moment fields.
-            TextView tvMechWeightName = new TextView(this);
-            tvMechWeightName.setLayoutParams(rowLayoutParams);
-            tvMechWeightName.setText(m.name);
-            tvMechWeightName.setTextSize(tvMechWeightName.getTextSize() * textViewModifier);
-            llMechWeight.addView(tvMechWeightName);
+            TextView tvSingleWeightName = new TextView(this);
+            tvSingleWeightName.setLayoutParams(tableRowParams);
+            tvSingleWeightName.setText(weight.name);
+            tvSingleWeightName.setTextSize(tvSingleWeightName.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvSingleWeightName);
 
-            TextView tvMechWeightWeight = new TextView(this);
-            tvMechWeightWeight.setLayoutParams(rowLayoutParams);
-            tvMechWeightWeight.setText(new DecimalFormat("#.##").format(m.weight));
-            tvMechWeightWeight.setTextSize(tvMechWeightWeight.getTextSize() * textViewModifier);
-            llMechWeight.addView(tvMechWeightWeight);
-            if (m.name.equals(res.getString(R.string.empty))) {
-                llMechWeight.setEnabled(false);
+            TextView tvSingleWeightWeight = new TextView(this);
+            tvSingleWeightWeight.setLayoutParams(tableRowParams);
+            tvSingleWeightWeight.setGravity(Gravity.END);
+            tvSingleWeightWeight.setText(new DecimalFormat("#.##").format(weight.weight));
+            tvSingleWeightWeight.setTextSize(tvSingleWeightWeight.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvSingleWeightWeight);
+
+            TextView tvSingleWeightArm = new TextView(this);
+            tvSingleWeightArm.setLayoutParams(tableRowParams);
+            tvSingleWeightArm.setGravity(Gravity.END);
+            tvSingleWeightArm.setText(new DecimalFormat("#.##").format(weight.arm));
+            tvSingleWeightArm.setTextSize(tvSingleWeightArm.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvSingleWeightArm);
+
+            TextView tvSingleWeightMoment = new TextView(this);
+            tvSingleWeightMoment.setLayoutParams(tableRowParams);
+            tvSingleWeightMoment.setGravity(Gravity.END);
+            tvSingleWeightMoment.setText(new DecimalFormat("#.##").format((weight.weight * weight.arm) / aircraft.momentDivide));
+            tvSingleWeightMoment.setTextSize(tvSingleWeightMoment.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvSingleWeightMoment);
+
+            //Add to HashMap, as we'll sort by Arm before adding to Parent View
+            Double armSortValue = weight.arm;
+            while (true) {
+                if (hmArmToTblRow.containsKey(armSortValue)) {
+                    armSortValue += 0.001;
+                } else {
+                    break;
+                }
             }
-
-            TextView tvMechWeightArm = new TextView(this);
-            tvMechWeightArm.setLayoutParams(rowLayoutParams);
-            tvMechWeightArm.setText(new DecimalFormat("#.##").format(m.arm));
-            tvMechWeightArm.setTextSize(tvMechWeightArm.getTextSize() * textViewModifier);
-            llMechWeight.addView(tvMechWeightArm);
-
-            TextView tvMechWeightMoment = new TextView(this);
-            tvMechWeightMoment.setLayoutParams(rowLayoutParams);
-            tvMechWeightMoment.setText(new DecimalFormat("#.##").format((m.weight * m.arm) / aircraft.momentDivide));
-            tvMechWeightMoment.setTextSize(tvMechWeightMoment.getTextSize() * textViewModifier);
-            llMechWeight.addView(tvMechWeightMoment);
-
-            //Add to ArmToLayout HashMap, as we'll sort by Arm before adding to ScrollView
-            hmArmToLayout.put(m.arm, llMechWeight);
+            hmArmToTblRow.put(armSortValue, tblrSingleWeight);
         }
 
         //baggage weight inputs
-        for (AircraftClass.baggageArea b : aircraft.baggageAreas) {
-            LinearLayout llBagWeight = new LinearLayout(this);
-            llBagWeight.setOrientation(LinearLayout.HORIZONTAL);
-            llBagWeight.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
+        for (AircraftClass.baggageArea weight : aircraft.baggageAreas) {
+            TableRow tblrSingleWeight = new TableRow(this);
+            tblrSingleWeight.setLayoutParams(tableParams);
+            tblrSingleWeight.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
 
             //layout our name, weight, arm, and moment fields.
-            TextView tvBagWeightName = new TextView(this);
-            tvBagWeightName.setLayoutParams(rowLayoutParams);
-            tvBagWeightName.setText(b.name);
-            tvBagWeightName.setTextSize(tvBagWeightName.getTextSize() * textViewModifier);
-            llBagWeight.addView(tvBagWeightName);
+            TextView tvSingleWeightName = new TextView(this);
+            tvSingleWeightName.setLayoutParams(tableRowParams);
+            tvSingleWeightName.setText(weight.name);
+            tvSingleWeightName.setTextSize(tvSingleWeightName.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvSingleWeightName);
 
-            TextView tvBagWeightWeight = new TextView(this);
-            tvBagWeightWeight.setLayoutParams(rowLayoutParams);
-            tvBagWeightWeight.setText(new DecimalFormat("#.##").format(b.weight));
-            tvBagWeightWeight.setTextSize(tvBagWeightWeight.getTextSize() * textViewModifier);
-            llBagWeight.addView(tvBagWeightWeight);
-            if (b.name.equals(res.getString(R.string.empty))) {
-                llBagWeight.setEnabled(false);
+            TextView tvSingleWeightWeight = new TextView(this);
+            tvSingleWeightWeight.setLayoutParams(tableRowParams);
+            tvSingleWeightWeight.setGravity(Gravity.END);
+            tvSingleWeightWeight.setText(new DecimalFormat("#.##").format(weight.weight));
+            tvSingleWeightWeight.setTextSize(tvSingleWeightWeight.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvSingleWeightWeight);
+
+            TextView tvSingleWeightArm = new TextView(this);
+            tvSingleWeightArm.setLayoutParams(tableRowParams);
+            tvSingleWeightArm.setGravity(Gravity.END);
+            tvSingleWeightArm.setText(new DecimalFormat("#.##").format(weight.arm));
+            tvSingleWeightArm.setTextSize(tvSingleWeightArm.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvSingleWeightArm);
+
+            TextView tvSingleWeightMoment = new TextView(this);
+            tvSingleWeightMoment.setLayoutParams(tableRowParams);
+            tvSingleWeightMoment.setGravity(Gravity.END);
+            tvSingleWeightMoment.setText(new DecimalFormat("#.##").format((weight.weight * weight.arm) / aircraft.momentDivide));
+            tvSingleWeightMoment.setTextSize(tvSingleWeightMoment.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvSingleWeightMoment);
+
+            //Add to HashMap, as we'll sort by Arm before adding to Parent View
+            Double armSortValue = weight.arm;
+            while (true) {
+                if (hmArmToTblRow.containsKey(armSortValue)) {
+                    armSortValue += 0.001;
+                } else {
+                    break;
+                }
+            }
+            hmArmToTblRow.put(armSortValue, tblrSingleWeight);
+        }
+
+        //TODO: Add pax rows.
+        //passenger row weight inputs
+        for (AircraftClass.passengerRow row : aircraft.passengerRows) {
+            TableRow tblrSingleWeight = new TableRow(this);
+            tblrSingleWeight.setLayoutParams(tableParams);
+            tblrSingleWeight.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
+
+            //name, weight * numSeats, arm, and moment fields
+            TextView tvRowName = new TextView(this);
+            tvRowName.setLayoutParams(tableRowParams);
+            tvRowName.setText(row.name);
+            tvRowName.setTextSize(tvRowName.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvRowName);
+
+            LinearLayout llPaxSeatWts = new LinearLayout(this);
+            llPaxSeatWts.setOrientation(LinearLayout.VERTICAL);
+            llPaxSeatWts.setHorizontalGravity(Gravity.END);
+            tblrSingleWeight.addView(llPaxSeatWts);
+
+            for (int i=0; i < row.numseats; i++) {
+                TextView tvSinglePaxWeight = new TextView(this);
+                tvSinglePaxWeight.setLayoutParams(tableRowParams);
+                tvSinglePaxWeight.setGravity(Gravity.END);
+                tvSinglePaxWeight.setText(new DecimalFormat("#.##").format(0.0));
+                tvSinglePaxWeight.setTextSize(tvSinglePaxWeight.getTextSize() * textViewModifier);
+                llPaxSeatWts.addView(tvSinglePaxWeight);
             }
 
-            TextView tvBagWeightArm = new TextView(this);
-            tvBagWeightArm.setLayoutParams(rowLayoutParams);
-            tvBagWeightArm.setText(new DecimalFormat("#.##").format(b.arm));
-            tvBagWeightArm.setTextSize(tvBagWeightArm.getTextSize() * textViewModifier);
-            llBagWeight.addView(tvBagWeightArm);
+            TextView tvSingleWeightArm = new TextView(this);
+            tvSingleWeightArm.setLayoutParams(tableRowParams);
+            tvSingleWeightArm.setGravity(Gravity.END);
+            tvSingleWeightArm.setText(new DecimalFormat("#.##").format(row.arm));
+            tvSingleWeightArm.setTextSize(tvSingleWeightArm.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvSingleWeightArm);
 
-            TextView tvBagWeightMoment = new TextView(this);
-            tvBagWeightMoment.setLayoutParams(rowLayoutParams);
-            tvBagWeightMoment.setText(new DecimalFormat("#.##").format((b.weight * b.arm) / aircraft.momentDivide));
-            tvBagWeightMoment.setTextSize(tvBagWeightMoment.getTextSize() * textViewModifier);
-            llBagWeight.addView(tvBagWeightMoment);
+            TextView tvSingleWeightMoment = new TextView(this);
+            tvSingleWeightMoment.setLayoutParams(tableRowParams);
+            tvSingleWeightMoment.setGravity(Gravity.END);
+            tvSingleWeightMoment.setText(new DecimalFormat("#.##").format(0.0));
+            tvSingleWeightMoment.setTextSize(tvSingleWeightMoment.getTextSize() * textViewModifier);
+            tblrSingleWeight.addView(tvSingleWeightMoment);
 
-            //Add to ArmToLayout HashMap, as we'll sort by Arm before adding to ScrollView
-            hmArmToLayout.put(b.arm, llBagWeight);
+            //Add to HashMap, as we'll sort by Arm before adding to Parent View
+            Double armSortValue = row.arm;
+            while (true) {
+                if (hmArmToTblRow.containsKey(armSortValue)) {
+                    armSortValue += 0.001;
+                } else {
+                    break;
+                }
+            }
+            hmArmToTblRow.put(armSortValue, tblrSingleWeight);
         }
 
-        //passenger row inputs.
+        //Make our first table row, our legend.
+        TableLayout tblDataInput = new TableLayout(this);
+        tblDataInput.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-        //sort LinearLayouts by the arm key and add to scrollview.
-        SortedSet<Double> sortedArms = new TreeSet<Double>(hmArmToLayout.keySet());
+        TableRow tblrLegend = new TableRow(this);
+        tblrLegend.setLayoutParams(tableParams);
+        tblrLegend.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
+        tblDataInput.addView(tblrLegend);
+
+        TextView tvNameLabel = new TextView(this);
+        tvNameLabel.setLayoutParams(tableRowParams);
+        tvNameLabel.setText(R.string.label_name);
+        tvNameLabel.setTextSize(tvNameLabel.getTextSize() * textViewModifier);
+        tblrLegend.addView(tvNameLabel);
+
+        TextView tvWeightLabel = new TextView(this);
+        tvWeightLabel.setLayoutParams(tableRowParams);
+        tvWeightLabel.setGravity(Gravity.END);
+        String weightLabel = res.getString(R.string.label_weight) + "\n" + "(" + aircraft.weightUnits + ")";
+        tvWeightLabel.setText(weightLabel);
+        tvWeightLabel.setLines(2);
+        tvWeightLabel.setTextSize(tvWeightLabel.getTextSize() * textViewModifier);
+        tblrLegend.addView(tvWeightLabel);
+
+        TextView tvArmLabel = new TextView(this);
+        tvArmLabel.setLayoutParams(tableRowParams);
+        tvArmLabel.setGravity(Gravity.END);
+        String armLabel = res.getString(R.string.label_arm) + "\n" + "(" + aircraft.armUnits + ")";
+        tvArmLabel.setText(armLabel);
+        tvArmLabel.setLines(2);
+        tvArmLabel.setTextSize(tvArmLabel.getTextSize() * textViewModifier);
+        tblrLegend.addView(tvArmLabel);
+
+        TextView tvMomentLabel = new TextView(this);
+        tvMomentLabel.setLayoutParams(tableRowParams);
+        tvMomentLabel.setGravity(Gravity.END);
+        String momentLabel = res.getString(R.string.label_moment) + "\n" + "(/" + aircraft.momentDivide + ")";
+        tvMomentLabel.setText(momentLabel);
+        tvMomentLabel.setLines(2);
+        tvMomentLabel.setTextSize(tvMomentLabel.getTextSize() * textViewModifier);
+        tblrLegend.addView(tvMomentLabel);
+
+        //DEBUG: Add lots of rows to test scroll.
+        /*for (int i = 0; i < 10; i++) {
+            TableRow tblrLegend2 = new TableRow(this);
+            tblrLegend2.setLayoutParams(tableParams);
+            tblrLegend2.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
+
+
+            TextView tvNameLabel2 = new TextView(this);
+            tvNameLabel2.setLayoutParams(tableRowParams);
+            tvNameLabel2.setText(R.string.unset);
+            tvNameLabel2.setTextSize(tvNameLabel2.getTextSize() * textViewModifier);
+            tblrLegend2.addView(tvNameLabel2);
+
+            TextView tvWeightLabel2 = new TextView(this);
+            tvWeightLabel2.setLayoutParams(tableRowParams);
+            tvWeightLabel2.setText(R.string.unset);
+            tvWeightLabel2.setTextSize(tvWeightLabel2.getTextSize() * textViewModifier);
+            tblrLegend2.addView(tvWeightLabel2);
+
+            TextView tvArmLabel2 = new TextView(this);
+            tvArmLabel2.setLayoutParams(tableRowParams);
+            tvArmLabel2.setText(R.string.unset);
+            tvArmLabel2.setTextSize(tvArmLabel2.getTextSize() * textViewModifier);
+            tblrLegend2.addView(tvArmLabel2);
+
+            TextView tvMomentLabel2 = new TextView(this);
+            tvMomentLabel2.setLayoutParams(tableRowParams);
+            tvMomentLabel2.setText(R.string.unset);
+            tvMomentLabel2.setTextSize(tvMomentLabel2.getTextSize() * textViewModifier);
+            tblrLegend2.addView(tvMomentLabel2);
+
+            Double armSortValue = 1000.0;
+            while (true) {
+                if (hmArmToTblRow.containsKey(armSortValue)) {
+                    armSortValue += 0.001;
+                } else {
+                    break;
+                }
+            }
+            hmArmToTblRow.put(armSortValue, tblrLegend2);
+        }*/
+
+        //sort, then add the table rows we created and stashed above to our table.
+        SortedSet<Double> sortedArms = new TreeSet<>(hmArmToTblRow.keySet());
         for (Double a : sortedArms) {
-            llDataInput.addView(hmArmToLayout.get(a));
+            tblDataInput.addView(hmArmToTblRow.get(a));
         }
+        llDataInput.addView(tblDataInput);
     }
 
     private void setLocation (View view, float xPercent, float yPercent, String anchorPoint) {

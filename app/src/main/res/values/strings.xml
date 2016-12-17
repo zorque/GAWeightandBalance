@@ -26,64 +26,21 @@
     <string name="pounds">lbs</string>
     <string name="inches">in</string>
     <string name="unset">NULL</string>
+    <string name="v_o_i_d">VOID</string>
     <string name="split">ooOO00split00OOoo</string>
-
-    <string name="no_files">No Files Found</string>
-    <string name="no_templates">No Templates Found</string>
-    <string name="make_sample">Make Sample</string>
+    <string name="invalid_entry_title">Invalid Entry</string>
+    <string name="invalid_entry_msg">Entry must be a decimal number (123.4)</string>
+    <string name="invalid_double">Invalid Double found: </string>
+    <string name="in_range">In Range</string>
+    <string name="heavy">Heavy</string>
+    <string name="nose_heavy">Nose Heavy</string>
+    <string name="tail_heavy">Tail Heavy</string>
+    <string name="bad_weight_envelope">No envelope for weight</string>
+    <string name="almost">Almost</string>
+    <string name="near_limits">Near Limits</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="total_weight_label">Total Weight:</string>
-    <string name="total_moment_label">Total Moment</string>
-    <string name="label_weight_result">Weight Analysis: </string>
-    <string name="label_weight_result_in_range">In Range</string>
-    <string name="label_weight_result_light">Out-of-range LIGHT</string>
-    <string name="label_weight_result_heavy">Out-of-range HEAVY</string>
-    <string name="label_weight_graph_low">light</string>
-    <string name="label_weight_graph_high">heavy</string>
-    <string name="label_moment_result">Moment Analysis: </string>
-    <string name="label_moment_result_bad_weight">VOID (Weight Out-of-Range)</string>
-    <string name="label_moment_result_in_range">In Range</string>
-    <string name="label_moment_result_nose">Nose-Heavy</string>
-    <string name="label_moment_result_tail">Tail-Heavy</string>
-    <string name="label_moment_graph_low">nose</string>
-    <string name="label_moment_graph_high">tail</string>
-    <string name="graph_moment_bad_weight">xxxxxLxxxxxxxxxxHxxxxx</string>
-    <string name="graph_weight">-----L----------H-----</string>
-    <string name="graph_moment">-----N----------T-----</string>
-    <string name="light">L</string>
-    <string name="heavy">H</string>
-    <string name="nose">N</string>
-    <string name="tail">T</string>
-    <string-array name="sample_file_content">
-        <item>START</item>
-        <item>WTKEY,NAME,WEIGHT,ARM</item>
-        <item>WT,Empty,2071,37.86</item>
-        <item>WT,Oil,22,-18.18</item>
-        <item>WT,Fuel,0,42.97</item>
-        <item>BAGKEY,NAME,WEIGHT,ARM</item>
-        <item>BAG,Baggage,0,115</item>
-        <item>ROWKEY,NAME,ARM,NUMSEATS</item>
-        <item>ROW,Front,35.88,2</item>
-        <item>ROW,Middle,70,2</item>
-        <item>ROW,Rear,94.29,2</item>
-        <item>DATAKEY,NAME,VALUE</item>
-        <item>DATA,MaxGross,3400</item>
-        <item>DATA,MomentDivide,1000</item>
-        <item>ENVKEY,WEIGHT,LOWMOMENT,HIGHMOMENT</item>
-        <item>ENV,2000,71,95.5</item>
-        <item>ENV,2800,99,134</item>
-        <item>ENV,3400,135,162.5</item>
-        <item>END</item>
-    </string-array>
-    <string-array name="key_lines">
-        <item>START</item>
-        <item>WTKEY,NAME,WEIGHT,ARM</item>
-        <item>BAGKEY,NAME,WEIGHT,ARM</item>
-        <item>ROWKEY,NAME,ARM,NUMSEATS</item>
-        <item>DATAKEY,NAME,VALUE</item>
-        <item>ENVKEY,WEIGHT,LOWMOMENT,HIGHMOMENT</item>
-        <item>END</item>
-    </string-array>
-    <string name="tail_number_label">Tail Number: </string>
+    <string name="ok">OK</string>
+    <string name="reset">Reset\nDefaults</string>
+    <string name="show_graph">Show\nGraph</string>
 </resources>

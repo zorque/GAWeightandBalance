@@ -18,10 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UseTemplateActivity" />
         <activity android:name=".CreateTemplateActivity" />
-        <activity android:name=".OldMainActivity" />
-        <activity android:name=".OpenTemplateActivity"></activity>
+        <activity android:name=".OpenTemplateActivity" />
+        <activity android:name=".ShowGraphActivity"></activity>
     </application>
 
 </manifest>

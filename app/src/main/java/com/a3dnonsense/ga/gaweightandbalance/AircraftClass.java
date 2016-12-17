@@ -1,8 +1,10 @@
 package com.a3dnonsense.ga.gaweightandbalance;
 
 import android.content.res.Resources;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 class AircraftClass implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
@@ -10,24 +12,23 @@ class AircraftClass implements java.io.Serializable {
     class mechanicalWeight implements java.io.Serializable {
         String name = "";
         Double weight = 0.0;
-        Double arm;
-        int id;
-        int momentId;
+        Double arm = 0.0;
+        TextView tvWeight;
+        TextView tvMoment;
     }
     class baggageArea implements java.io.Serializable {
         String name = "";
         Double weight = 0.0;
         Double arm = 0.0;
-        int id;
-        int momentId;
+        TextView tvWeight;
+        TextView tvMoment;
     }
     class passengerRow implements java.io.Serializable {
         String name = "";
         Double arm = 0.0;
-        Double weight = 0.0;
         int numseats = 0;
-        int[] ids;
-        int momentID;
+        TextView[] tvWeights;
+        TextView tvMoment;
     }
     class envelopeData implements java.io.Serializable {
         Double weight;
@@ -35,19 +36,20 @@ class AircraftClass implements java.io.Serializable {
         Double highMoment;
     }
 
-    ArrayList<mechanicalWeight> mechanicalWeights = new ArrayList<mechanicalWeight>();
-    ArrayList<passengerRow> passengerRows = new ArrayList<passengerRow>();
-    ArrayList<baggageArea> baggageAreas = new ArrayList<baggageArea>();
-    ArrayList<envelopeData> envelopeDataSet = new ArrayList<envelopeData>();
+    ArrayList<mechanicalWeight> mechanicalWeights = new ArrayList<>();
+    ArrayList<passengerRow> passengerRows = new ArrayList<>();
+    ArrayList<baggageArea> baggageAreas = new ArrayList<>();
+    ArrayList<envelopeData> envelopeDataSet = new ArrayList<>();
 
-    String tailNumber;
-    String model;
+    private String tailNumber;
+    private String model;
     String weightUnits;
     String armUnits;
     Double maxGross;
     Double emptyWeight;
     Double momentDivide;
 
+    //methods
     String getTemplateName() {
         return this.tailNumber + "-" + this.model;
     }
@@ -84,12 +86,15 @@ class AircraftClass implements java.io.Serializable {
         front.name = "Front";
         front.arm = 35.88;
         front.numseats = 2;
+        front.tvWeights = new TextView[2];
         middle.name = "Middle";
         middle.arm = 70.0;
         middle.numseats = 2;
+        middle.tvWeights = new TextView[2];
         rear.name = "Rear";
         rear.arm = 94.29;
         rear.numseats = 2;
+        rear.tvWeights = new TextView[2];
         a.passengerRows.add(front);
         a.passengerRows.add(middle);
         a.passengerRows.add(rear);
@@ -117,4 +122,14 @@ class AircraftClass implements java.io.Serializable {
 
         return a;
     }
+}
+
+//create transient data holder class which will be used to save dynamic data to a data file
+class TransientData implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+
+    //hashmap to hold weight name to weight string.
+    HashMap<String, Double> WtNameToWtDouble = new HashMap<>();
+    Double totalWeight = 0.0;
+    Double totalMoment = 0.0;
 }

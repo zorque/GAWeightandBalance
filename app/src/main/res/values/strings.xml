@@ -15,7 +15,7 @@
     <string name="try_recreating_file">file may be from older version, try deleting and re-creating</string>
     <string name="sample_created_alert_title">Sample Created - Reload</string>
     <string name="sample_created_alert_message">A sample file has been created. List will refresh.</string>
-    <string name="sample_template_prefix">NSAMPL-</string>
+    <string name="sample_template_prefix">NSAMPL</string>
     <string name="label_weight">Weight</string>
     <string name="label_arm">Arm</string>
     <string name="label_moment">Moment</string>
@@ -24,7 +24,9 @@
     <string name="oil">Oil</string>
     <string name="fuel">Fuel</string>
     <string name="pounds">lbs</string>
+    <string name="kilograms">kg</string>
     <string name="inches">in</string>
+    <string name="centimeters">cm</string>
     <string name="unset">NULL</string>
     <string name="v_o_i_d">VOID</string>
     <string name="split">ooOO00split00OOoo</string>
@@ -43,4 +45,25 @@
     <string name="ok">OK</string>
     <string name="reset">Reset\nDefaults</string>
     <string name="show_graph">Show\nGraph</string>
+
+    <string-array name="weight_units">
+        <item>@string/pounds</item>
+        <item>@string/kilograms</item>
+    </string-array>
+    <string-array name="arm_units">
+        <item>@string/inches</item>
+        <item>@string/centimeters</item>
+    </string-array>
+
+    <string name="instructions_name">The name of your W/B template will be your tail number plus the short description of the model of plane (i.e. N12345-c172). Enter the tail number and model below.</string>
+    <string name="label_tail_num">Tail #:</string>
+    <string name="label_model">Model:</string>
+    <string name="instructions_units">Choose how you will represent your weight and arm measurements below.</string>
+    <string name="instructions_empty_weight">Enter the empty weight of your aircraft below.</string>
+    <string name="instructions_fuel_oil">Enter the default weight of fuel and oil, and their respective arms, below. If you want to start at 0 (or the oil weight is already part of your empty) then just leave the weight at 0 and it will not affect the final balance. (Hint: Most people set this to full fuel and oil weights so they can divide by 2 for half fuel, etc)</string>
+    <string name="label_fuel_weight">Fuel Weight: </string>
+    <string name="label_oil_weight">Oil Weight: </string>
+    <string name="instructions_pax">Enter the name, arm and number of seats for each passenger row below (weights will be input when using the template later). Each row must have a unique name, and will be sorted by arm. Click + to add a row or - to remove the row.</string>
+    <string name="passenger_rows">Occupant Rows</string>
+    <string name="row">Row</string>
 </resources>

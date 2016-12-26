@@ -41,13 +41,13 @@ class AircraftClass implements java.io.Serializable {
     ArrayList<baggageArea> baggageAreas = new ArrayList<>();
     ArrayList<envelopeData> envelopeDataSet = new ArrayList<>();
 
-    private String tailNumber;
-    private String model;
-    String weightUnits;
-    String armUnits;
-    Double maxGross;
-    Double emptyWeight;
-    Double momentDivide;
+    String tailNumber = "";
+    String model = "";
+    String weightUnits = "";
+    String armUnits = "";
+    Double maxGross = 0.0;
+    Double emptyWeight = 0.0;
+    Double momentDivide = 0.0;
 
     //methods
     String getTemplateName() {

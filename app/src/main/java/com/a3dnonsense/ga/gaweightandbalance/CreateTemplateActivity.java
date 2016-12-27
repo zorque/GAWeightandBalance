@@ -10,7 +10,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.DigitsKeyListener;
+import android.text.InputType;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -315,7 +315,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
         final EditText etGrossWeight = new EditText(this);
         etGrossWeight.setLayoutParams(tvParamsWeight1);
         etGrossWeight.setText("0.0");
-        etGrossWeight.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
+        etGrossWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         etGrossWeight.setSelectAllOnFocus(true);
         etGrossWeight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -364,7 +364,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
         final EditText etEmptyWeight = new EditText(this);
         etEmptyWeight.setLayoutParams(tvParamsWeight1);
         etEmptyWeight.setText("0.0");
-        etEmptyWeight.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
+        etEmptyWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         etEmptyWeight.setSelectAllOnFocus(true);
         etEmptyWeight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -412,7 +412,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
         final EditText etEmptyArm = new EditText(this);
         etEmptyArm.setLayoutParams(tvParamsWeight1);
         etEmptyArm.setText("0.0");
-        etEmptyArm.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
+        etEmptyArm.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         etEmptyArm.setSelectAllOnFocus(true);
         etEmptyArm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -466,7 +466,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
         final EditText etFuelWeight = new EditText(this);
         etFuelWeight.setLayoutParams(tvParamsWeight1);
         etFuelWeight.setText("0.0");
-        etFuelWeight.setKeyListener(DigitsKeyListener.getInstance("0123456789-."));
+        etFuelWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         etFuelWeight.setSelectAllOnFocus(true);
         etFuelWeight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -515,7 +515,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
         final EditText etFuelArm = new EditText(this);
         etFuelArm.setLayoutParams(tvParamsWeight1);
         etFuelArm.setText("0.0");
-        etFuelArm.setKeyListener(DigitsKeyListener.getInstance("0123456789-."));
+        etFuelArm.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         etFuelArm.setSelectAllOnFocus(true);
         etFuelArm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -568,7 +568,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
         final EditText etOilWeight = new EditText(this);
         etOilWeight.setLayoutParams(tvParamsWeight1);
         etOilWeight.setText("0.0");
-        etOilWeight.setKeyListener(DigitsKeyListener.getInstance("0123456789-."));
+        etOilWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         etOilWeight.setSelectAllOnFocus(true);
         etOilWeight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -617,7 +617,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
         final EditText etOilArm = new EditText(this);
         etOilArm.setLayoutParams(tvParamsWeight1);
         etOilArm.setText("0.0");
-        etOilArm.setKeyListener(DigitsKeyListener.getInstance("0123456789-."));
+        etOilArm.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         etOilArm.setSelectAllOnFocus(true);
         etOilArm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -822,7 +822,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
                 String strLongArm = "00.00";
                 etPaxRowArm.setText(strLongArm);
                 etPaxRowArm.setTextColor(colorOriginal);
-                etPaxRowArm.setKeyListener(DigitsKeyListener.getInstance("0123456789-."));
+                etPaxRowArm.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 etPaxRowArm.setSelectAllOnFocus(true);
                 etPaxRowArm.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -869,7 +869,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
                 etPaxRowSeats.setLayoutParams(tableRowParamsWeight1);
                 etPaxRowSeats.setText("1");
                 etPaxRowSeats.setTextColor(colorOriginal);
-                etPaxRowSeats.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+                etPaxRowSeats.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 etPaxRowSeats.setSelectAllOnFocus(true);
                 etPaxRowSeats.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -1094,7 +1094,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
                 etBagAreaArm.setLayoutParams(tableRowParamsWeight1);
                 etBagAreaArm.setText("0.0");
                 etBagAreaArm.setTextColor(colorOriginal);
-                etBagAreaArm.setKeyListener(DigitsKeyListener.getInstance("0123456789-."));
+                etBagAreaArm.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 etBagAreaArm.setSelectAllOnFocus(true);
                 etBagAreaArm.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -1202,7 +1202,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
         final EditText etMomentDivide = new EditText(this);
         etMomentDivide.setLayoutParams(tvParamsWeight1);
         etMomentDivide.setText("1.0");
-        etMomentDivide.setKeyListener(DigitsKeyListener.getInstance("0123456789-."));
+        etMomentDivide.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         etMomentDivide.setSelectAllOnFocus(true);
         etMomentDivide.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1310,7 +1310,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
                 final EditText etDataWeight = new EditText(getBaseContext());
                 etDataWeight.setLayoutParams(tableRowParamsWeight1);
                 etDataWeight.setText("0.0");
-                etDataWeight.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
+                etDataWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 etDataWeight.setTextColor(colorOriginal);
                 etDataWeight.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
                 etDataWeight.setGravity(Gravity.END);
@@ -1382,7 +1382,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
                 final EditText etDataLowMoment = new EditText(getBaseContext());
                 etDataLowMoment.setLayoutParams(tableRowParamsWeight1);
                 etDataLowMoment.setText("0.0");
-                etDataLowMoment.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
+                etDataLowMoment.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 etDataLowMoment.setTextColor(colorOriginal);
                 etDataLowMoment.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
                 etDataLowMoment.setGravity(Gravity.END);
@@ -1446,7 +1446,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
                 final EditText etDataHighMoment = new EditText(getBaseContext());
                 etDataHighMoment.setLayoutParams(tableRowParamsWeight1);
                 etDataHighMoment.setText("0.0");
-                etDataHighMoment.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
+                etDataHighMoment.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 etDataHighMoment.setTextColor(colorOriginal);
                 etDataHighMoment.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
                 etDataHighMoment.setGravity(Gravity.END);

@@ -1263,9 +1263,8 @@ public class CreateTemplateActivity extends AppCompatActivity {
         TextView tvLegendWeight = new TextView(this);
         tvLegendWeight.setLayoutParams(tableRowParamsWeight1);
         tvLegendWeight.setLines(2);
-        String strLegendWeight = res.getString(R.string.label_weight) + "\n" + res.getString(R.string.zero_removes);
-        tvLegendWeight.setText(strLegendWeight);
-        tvLegendWeight.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
+        tvLegendWeight.setText(R.string.label_weight);
+        tvLegendWeight.setGravity(Gravity.CENTER);
         tvLegendWeight.setTextColor(colorOriginal);
         tvLegendWeight.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
         tblrLegend.addView(tvLegendWeight);
@@ -1275,7 +1274,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
         tvLegendLow.setLines(2);
         String strLegendLow = res.getString(R.string.label_moment) + "\n" + res.getString(R.string.low);
         tvLegendLow.setText(strLegendLow);
-        tvLegendLow.setGravity(Gravity.CENTER_HORIZONTAL);
+        tvLegendLow.setGravity(Gravity.CENTER);
         tvLegendLow.setTextColor(colorOriginal);
         tvLegendLow.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
         tblrLegend.addView(tvLegendLow);
@@ -1285,7 +1284,7 @@ public class CreateTemplateActivity extends AppCompatActivity {
         tvLegendHigh.setLines(2);
         String strLegendHigh = res.getString(R.string.label_moment) + "\n" + res.getString(R.string.high);
         tvLegendHigh.setText(strLegendHigh);
-        tvLegendHigh.setGravity(Gravity.CENTER_HORIZONTAL);
+        tvLegendHigh.setGravity(Gravity.CENTER);
         tvLegendHigh.setTextColor(colorOriginal);
         tvLegendHigh.setBackground(ResourcesCompat.getDrawable(res, R.drawable.customborder, null));
         tblrLegend.addView(tvLegendHigh);

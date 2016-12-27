@@ -92,7 +92,6 @@
     <string name="instructions_moment_divide">Most POHs have the moment divided by some number (usually 1000) for readability. Enter this number here to make the app\'s moment data match your POH references.</string>
     <string name="moment_divide">Moment /</string>
     <string name="envelope_data_points">Envelope Data Points</string>
-    <string name="zero_removes">(0 deletes)</string>
     <string name="low">Low</string>
     <string name="high">High</string>
     <string name="duplicate_weight_title">Duplicate Weight</string>

@@ -55,15 +55,63 @@
         <item>@string/centimeters</item>
     </string-array>
 
+    <string name="help_icon">\?</string>
+    <string name="create_title_name"><u><b>Identification</b></u></string>
     <string name="instructions_name">The name of your W/B template will be your tail number plus the short description of the model of plane (i.e. N12345-c172). Enter the tail number and model below.</string>
     <string name="label_tail_num">Tail #:</string>
     <string name="label_model">Model:</string>
+    <string name="create_title_units"><u><b>Units</b></u></string>
     <string name="instructions_units">Choose how you will represent your weight and arm measurements below.</string>
-    <string name="instructions_empty_weight">Enter the empty weight of your aircraft below.</string>
-    <string name="instructions_fuel_oil">Enter the default weight of fuel and oil, and their respective arms, below. If you want to start at 0 (or the oil weight is already part of your empty) then just leave the weight at 0 and it will not affect the final balance. (Hint: Most people set this to full fuel and oil weights so they can divide by 2 for half fuel, etc)</string>
+    <string name="create_title_mechanical_weights"><u><b>Empty/Fuel/Oil</b></u></string>
+    <string name="instructions_nechanical_weights">Enter the default weights and arms for your aircraft\'s Empty, Fuel, and Oil stats below.
+        The empty and gross (maximum) weights can not be altered after the template is created.
+        If you want to start at 0 for fuel / oil (or the oil weight is already part of your empty) then just leave the weight at 0 and it will not affect the final balance.
+        (Hint: Most people set default full fuel and oil weights so they can divide by 2 for half fuel, etc)</string>
+    <string name="label_gross">Gross</string>
+    <string name="max">max</string>
     <string name="label_fuel_weight">Fuel Weight: </string>
     <string name="label_oil_weight">Oil Weight: </string>
-    <string name="instructions_pax">Enter the name, arm and number of seats for each passenger row below (weights will be input when using the template later). Each row must have a unique name, and will be sorted by arm. Click + to add a row or - to remove the row.</string>
+    <string name="create_title_pax_rows"><u><b>Occupant Rows</b></u></string>
+    <string name="instructions_pax">Enter the name, arm and number of seats for each passenger row below (weights will be input when using the template later).
+        Each row must have a unique name, and will be sorted by arm. Click + to add a row or - to remove the row.</string>
     <string name="passenger_rows">Occupant Rows</string>
     <string name="row">Row</string>
+    <string name="duplicate_name_title">Duplicate Name</string>
+    <string name="duplicate_name_msg">Names must be unique.</string>
+    <string name="label_seats">Seats</string>
+    <string name="invalid_integer">Entry must be a positive integer above 0</string>
+    <string name="create_title_bag"><u><b>Baggage Areas</b></u></string>
+    <string name="instructions_bag">Enter a unique name and arm for each baggage area (weight will be entered using the template later).</string>
+    <string name="baggage_areas">Baggage Areas</string>
+    <string name="baggage">Bags</string>
+    <string name="create_title_data"><u><b>Moment Envelope Data</b></u></string>
+    <string name="instructions_data">In this area you will enter data from your safe weight-to-moment envelope from the POH.</string>
+    <string name="instructions_moment_divide">Most POHs have the moment divided by some number (usually 1000) for readability. Enter this number here to make the app\'s moment data match your POH references.</string>
+    <string name="moment_divide">Moment /</string>
+    <string name="envelope_data_points">Envelope Data Points</string>
+    <string name="zero_removes">(0 deletes)</string>
+    <string name="low">Low</string>
+    <string name="high">High</string>
+    <string name="duplicate_weight_title">Duplicate Weight</string>
+    <string name="duplicate_weight_msg">Weights should not be repeated. Interpolation requires several different weight points.</string>
+    <string name="duplicate_moment_title">Duplicate Moment</string>
+    <string name="duplicate_moment_msg">Warning: Duplicate low or high moment found. Most moment graphs slant, so duplicate moments are very rare. Please check your reference points.</string>
+    <string name="submit">Create Template</string>
+
+    <string name="verification_failure">Verification Failure</string>
+    <string name="verification_tail_or_model_blank">Tail number or model blank. Both must be filled in.</string>
+    <string name="verification_duplicate_template">Existing aircraft found with same name. Delete existing aircraft or change this name.</string>
+    <string name="verification_weight_or_arm_units_blank">Weight or Arm units blank. Must select from available choices.</string>
+    <string name="verification_empty_weight">Empty Weight and Arm must be Numeric, and empty weight must be > 0</string>
+    <string name="verification_gross_weight">Gross weight must be Numeric and > the aircraft\'s empty weight.</string>
+    <string name="verification_moment_divide">Moment Division must be > 0</string>
+    <string name="verification_mechanical_weights">Non-numeric entry: Empty, Fuel, and oil weights  and arms must be numeric.</string>
+    <string name="verification_no_pax_rows">No Occupant rows found. This plane won\'t be very useful if it can\'t hold people.</string>
+    <string name="verification_pax_row_unique_names">Duplicate name found. Occupant rows must have unique names.</string>
+    <string name="verification_pax_row_num_seats">Found invalid number of seats. Each occupant row must have > 0 seats.</string>
+    <string name="verification_bag_area_unique_names">Duplicate name found: Baggage areas must have unique names.</string>
+    <string name="verification_data_weight_duplicate">Duplicate moment envelope weight found. At least 2 different weights are needed to interpolate.</string>
+    <string name="verification_need_two_envelope_weights">Not enough moment envelope data. Must have at least two moment envelope data points for interpolation.</string>
+    <string name="verification_low_high_moment_same">Low and High moment for given weight identical. Low and high moments must be separate for a safe envelope to exist.</string>
+    <string name="verification_high_moment_below_low_moment">High moment found less than low moment. It looks like the data was entered backwards.</string>
 </resources>

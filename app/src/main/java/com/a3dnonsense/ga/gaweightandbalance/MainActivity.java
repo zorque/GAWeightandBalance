@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openCreateTemplateActivity(View view) {
         Intent templateIntent = new Intent(view.getContext(), CreateTemplateActivity.class);
+        finish();
         startActivity(templateIntent);
     }
 }

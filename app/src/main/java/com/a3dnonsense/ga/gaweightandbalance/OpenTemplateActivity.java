@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
@@ -581,6 +582,8 @@ public class OpenTemplateActivity extends AppCompatActivity {
             LinearLayout llPaxSeatWts = new LinearLayout(this);
             llPaxSeatWts.setOrientation(LinearLayout.VERTICAL);
             tblrSingleWeight.addView(llPaxSeatWts);
+
+            row.tvWeights = new TextView[row.numseats];
 
             for (int i=0; i < row.numseats; i++) {
                 TextView tvSinglePaxWeight = new TextView(this);
@@ -1491,5 +1494,40 @@ public class OpenTemplateActivity extends AppCompatActivity {
         if (this.allowBackPress) {
             super.onBackPressed();
         }
+    }
+
+    @SuppressWarnings("unused")
+    private void logAircraft(AircraftClass a) {
+        Log.d("BEGINLOGGINGAIRCRAFT", a.getTemplateName());
+        Log.d("TAILNUMBER",a.tailNumber);
+        Log.d("MODEL",a.model);
+        Log.d("WEIGHTUNITS",a.weightUnits);
+        Log.d("ARMUNITS",a.armUnits);
+        Log.d("MAXGROSS",a.maxGross.toString());
+        Log.d("MOMENTDIVIDE",a.momentDivide.toString());
+        Log.d("MECHANICALWEIGHTS","LISTING");
+        for (AircraftClass.mechanicalWeight w : a.mechanicalWeights) {
+            Log.d("MW-NAME",w.name);
+            Log.d("MW-WEIGHT",w.weight.toString());
+            Log.d("MW-ARM",w.arm.toString());
+        }
+        Log.d("PAXROWS","LISTING");
+        for (AircraftClass.passengerRow p : a.passengerRows) {
+            Log.d("PR-NAME",p.name);
+            Log.d("PR-ARM",p.arm.toString());
+            Log.d("PR-SEATS",String.valueOf(p.numseats));
+        }
+        Log.d("BAGAREAS","LISTING");
+        for (AircraftClass.baggageArea b : a.baggageAreas) {
+            Log.d("BA-NAME",b.name);
+            Log.d("BA-ARM",b.arm.toString());
+        }
+        Log.d("ENVELOPEDATA","LISTING");
+        for (AircraftClass.envelopeData e : a.envelopeDataSet) {
+            Log.d("EN-WEIGHT",e.weight.toString());
+            Log.d("EN-LOWMOMENT",e.lowMoment.toString());
+            Log.d("EN-HIGHMOMENT",e.highMoment.toString());
+        }
+        Log.d("DONELISTINGAIRCRAFT",a.getTemplateName());
     }
 }

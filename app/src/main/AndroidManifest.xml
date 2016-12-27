@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateTemplateActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".OpenTemplateActivity" />
         <activity android:name=".ShowGraphActivity" />
     </application>
